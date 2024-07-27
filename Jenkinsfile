@@ -12,6 +12,8 @@ pipeline {
                 sh 'chmod +x gradlew'
                 sh  './gradlew clean build -x test'
                 sh 'ls -al ./build'
+                sh 'ls -al ./build/libs'
+                sh 'pwd'
             }
             post {
                 success {
