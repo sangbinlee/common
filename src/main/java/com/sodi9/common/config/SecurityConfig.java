@@ -19,6 +19,9 @@ public class SecurityConfig {
 				.requestMatchers("/member/join").permitAll()
 				.requestMatchers("/auth/login").permitAll()
 				.requestMatchers("/").permitAll()
+				.requestMatchers("/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html").permitAll()
 				.anyRequest().authenticated());
 		return http.build();
 	}
