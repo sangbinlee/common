@@ -60,7 +60,7 @@ pipeline {
                     fi
                     
                     echo "> common 배포 작업 시작"
-                	JENKINS_NODE_COOKIE=DONTKILLME NOHUP gradlew bootRun &
+                    JENKINS_NODE_COOKIE=dontKillMe nohup gradlew bootRun &
                     '''
                 }
             }
