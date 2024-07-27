@@ -9,6 +9,9 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 	'echo "빌드" 단계와 관련된 몇 가지 단계를 수행합니다.'
+                sh 'chmod +x gradlew'
+                sh  './gradlew clean build'
+                sh 'ls -al ./build'
             }
         }
         stage('Deploy') { 
