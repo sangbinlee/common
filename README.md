@@ -35,9 +35,15 @@
 	revoke all on mydatabase.* from 'myuser'@'%';
 	grant select, insert, delete, update on mydatabase.* to 'myuser'@'%';
 
-### 1. 실행
- 
+### 1. 실행 (gradlew)
 
+	gradle dependencies
+	gradle bootRun
+	gradle bootJar
+	gradle build
+	jar tvf build/libs/common-0.0.1-SNAPSHOT.jar
+	java -jar build/libs/myproject-0.0.1-SNAPSHOT.jar
+	
 ### local dev set
 
 
