@@ -33,22 +33,7 @@ pipeline {
         stage('Deploy') { 
             steps {
                 sh  'echo "배포" 단계와 관련된 몇 가지 단계를 수행합니다.'
-//                dir('build/libs'){
-//                    sh '''
-//                    CURRENT_PID=$(ps -ef | grep java | grep common | grep -v nohup | awk '{print $2}')
-//                    if [ -z ${CURRENT_PID} ] ; then
-//                        echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
-//                    else
-//                        echo "> 실행중인 어플리케이션 : $CURRENT_PID"
-//                        sudo kill -9 $CURRENT_PID
-//                        sleep 10
-//                    fi
-//                    
-//                    echo "> common 배포 작업 시작"
-//                    JENKINS_NODE_COOKIE=dontKillMe nohup java -jar common-0.0.1-SNAPSHOT.jar &
-//                    '''
-//                }
-                dir('.'){
+                dir('build/libs'){
                     sh '''
                     CURRENT_PID=$(ps -ef | grep java | grep common | grep -v nohup | awk '{print $2}')
                     if [ -z ${CURRENT_PID} ] ; then
@@ -59,11 +44,26 @@ pipeline {
                         sleep 10
                     fi
                     
-                    echo "> mysql 먼저 시작 by docker compose "
                     echo "> common 배포 작업 시작"
-                    JENKINS_NODE_COOKIE=dontKillMe nohup ./gradlew bootRun > common.log 2>&1 &
+                    JENKINS_NODE_COOKIE=dontKillMe nohup java -jar common-0.0.1-SNAPSHOT.jar &
                     '''
                 }
+//                dir('.'){
+//                    sh '''
+//                    CURRENT_PID=$(ps -ef | grep java | grep common | grep -v nohup | awk '{print $2}')
+//                    if [ -z ${CURRENT_PID} ] ; then
+//                        echo "> 현재 구동중인 애플리케이션이 없으므로 종료하지 않습니다."
+//                    else
+//                        echo "> 실행중인 어플리케이션 : $CURRENT_PID"
+//                        sudo kill -9 $CURRENT_PID
+//                        sleep 10
+//                    fi
+//                    
+//                    echo "> mysql 먼저 시작 by docker compose "
+//                    echo "> common 배포 작업 시작"
+//                    JENKINS_NODE_COOKIE=dontKillMe nohup ./gradlew bootRun > common.log 2>&1 &
+//                    '''
+//                }
             }
         }
     }
