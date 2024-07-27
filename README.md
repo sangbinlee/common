@@ -47,7 +47,7 @@
 	
 	
 	
-### db 먼저 start
+### db 먼저
 	
 	sangbinlee9@app-1:~$ sudo docker compose up -d
 	[+] Running 11/11
