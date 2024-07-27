@@ -59,6 +59,7 @@ pipeline {
                         sleep 10
                     fi
                     
+                    echo "> mysql 먼저 시작 by docker compose "
                     echo "> common 배포 작업 시작"
                     JENKINS_NODE_COOKIE=dontKillMe nohup ./gradlew bootRun > common.log 2>&1 &
                     '''
