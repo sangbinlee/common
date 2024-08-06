@@ -25,13 +25,14 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests(authorize -> 
 			authorize
-			.requestMatchers("/api/employees").permitAll()
-			.requestMatchers("/member/join").permitAll()
 				.requestMatchers("/auth/login").permitAll()
+				.requestMatchers("/api/employees").permitAll()
+				.requestMatchers("/member/join").permitAll()
 				.requestMatchers("/").permitAll()
 				.requestMatchers("/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/swagger-ui.html").permitAll()
+				
 				.anyRequest().authenticated());
 		return http.build();
 	}

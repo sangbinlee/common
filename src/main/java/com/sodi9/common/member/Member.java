@@ -1,4 +1,4 @@
-package com.sodi9.common.user;
+package com.sodi9.common.member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -6,10 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 @Entity // This tells Hibernate to make a table out of this class
-public class User {
+public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,4 +25,10 @@ public class User {
 	
 	@Column(length = 100, nullable = false)
 	private String password;
+
+	public Member(String email, String password, String name) {
+		this.email = email;
+		this.password = password;
+		this.name = name;
+	}
 }

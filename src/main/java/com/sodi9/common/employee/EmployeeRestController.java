@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api")
+@RequestMapping("api/employees")
 public class EmployeeRestController {
 
 	private final EmployeeRepository repository;
@@ -23,26 +23,26 @@ public class EmployeeRestController {
 
 	// Aggregate root
 	// tag::get-aggregate-root[]
-	@GetMapping("/employees")
+	@GetMapping
 	List<Employee> all() {
 		return repository.findAll();
 	}
 	// end::get-aggregate-root[]
 
-	@PostMapping("/employees")
+	@PostMapping
 	Employee newEmployee(@RequestBody Employee newEmployee) {
 		return repository.save(newEmployee);
 	}
 
 	// Single item
 
-	@GetMapping("/employees/{id}")
+	@GetMapping("{id}")
 	Employee one(@PathVariable Long id) {
 
 		return repository.findById(id).orElseThrow(() -> new EmployeeNotFoundException(id));
 	}
 
-	@PutMapping("/employees/{id}")
+	@PutMapping("{id}")
 	Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
 
 		return repository.findById(id).map(employee -> {
@@ -54,7 +54,7 @@ public class EmployeeRestController {
 		});
 	}
 
-	@DeleteMapping("/employees/{id}")
+	@DeleteMapping("{id}")
 	void deleteEmployee(@PathVariable Long id) {
 		repository.deleteById(id);
 	}
