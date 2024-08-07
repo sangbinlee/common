@@ -25,7 +25,10 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 @RestController // This means that this class is a @RestController
 //@RequestMapping(path = "/api") // This means URL's start with /api (after Application path)
 public class HomeRestController {
@@ -105,19 +108,30 @@ public class HomeRestController {
 			Integer id = member.getId();
 			String token = jwtService.getToken("id", id);
 
-//            Cookie cookie = new Cookie("token", token);
+//			addCookie(res, "token", token, 7 * 24 * 60 * 60);
+			
+			
+			/**
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 * TODO 개발자 도구 Application 탭에 쿠키가 안쌓인다. 
+			 */
+            Cookie cookie = new Cookie("token", token);
 //            cookie.setSecure(true);
-//            cookie.setHttpOnly(true);
-//            cookie.setPath("/");
+            cookie.setHttpOnly(true);
+            cookie.setPath("/");
 //            int maxAge = 1000 * 60 * 30;// 30분
 //            int maxAge = 120;// 30분
 //			cookie.setMaxAge(maxAge );
 //			cookie.setMaxAge(60 * 60);  // 쿠키 유효 시간 : 1시간
 			// expires in 7 days
 //		    cookie.setMaxAge(7 * 24 * 60 * 60);
-//            res.addCookie(cookie);
+            res.addCookie(cookie);
 
-			addCookie(res, "token", token, 7 * 24 * 60 * 60);
 
 //            HttpHeaders headers = new HttpHeaders();
 //            headers.add("Set-Cookie","key="+"value");
@@ -134,9 +148,11 @@ public class HomeRestController {
 //            return new ResponseEntity<>(id, HttpStatus.OK);
 
 //			return member.getId();
-//            return new ResponseEntity<Integer>(id,headers, HttpStatus.OK);
+            
+//            return ResponseEntity.ok().build();
 
-			return ResponseEntity.ok().build();
+//          return new ResponseEntity<Integer>(id,headers, HttpStatus.OK);
+          return new ResponseEntity<Integer>(id, HttpStatus.OK);
 		}
 
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -169,6 +185,7 @@ public class HomeRestController {
 
 	@GetMapping("/api/check")
 	public ResponseEntity check(@CookieValue(value = "token", required = false) String token) {
+		log.info("token={}", token);
 		Claims claims = jwtService.getClaims(token);
 
 		if (claims != null) {
