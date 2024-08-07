@@ -82,3 +82,40 @@
 로그인관리, 사용자관리. 메뉴관리, 권한관리, 코드관리, API 모듈, 로깅관리
 
 "# common" 
+
+
+
+
+### Enabling HTTPS in Spring Boot 
+
+	We can use the following command to generate our PKCS12 keystore format:
+	
+	keytool -genkeypair -alias baeldung -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore baeldung.p12 -validity 3650
+
+
+
+
+
+
+# Configuring SSL Properties
+	Now we’ll configure the SSL related properties:
+	
+	
+	freestar
+	
+	# The format used for the keystore. It could be set to JKS in case it is a JKS file
+	server.ssl.key-store-type=PKCS12
+	# The path to the keystore containing the certificate
+	server.ssl.key-store=classpath:keystore/baeldung.p12
+	# The password used to generate the certificate
+	server.ssl.key-store-password=password
+	# The alias mapped to the certificate
+	server.ssl.key-alias=baeldung
+ 
+
+
+# Since we’re using a Spring Security enabled application, let’s configure it to accept only HTTPS requests:
+
+	server.ssl.enabled=true
+
+

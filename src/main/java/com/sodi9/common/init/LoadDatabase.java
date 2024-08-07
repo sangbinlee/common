@@ -25,18 +25,18 @@ class LoadDatabase {
 			) {
 
 		return args -> {
-			log.info("Preloading " + employeeRepository.save(new Employee("Bilbo Baggins", "burglar")));
-			log.info("Preloading " + employeeRepository.save(new Employee("Frodo Baggins", "thief")));
-			
-			
-			log.info("Preloading " + memberRepository.save(new Member("sangbinlee9@gmail.com", "pwd1234", "이상빈")));
-			log.info("Preloading " + memberRepository.save(new Member("하나님@gmail.com", "pwd1234", "하나님")));
-			
-
-			log.info("Preloading " + itemRepository.save(new Item("ai-generated-8723974_640.png", "/src/assets/img/", 1000000, 10)));
-			log.info("Preloading " + itemRepository.save(new Item("istockphoto-155144963-1024x1024.jpg", "/src/assets/img/", 1000000, 10)));
-			log.info("Preloading " + itemRepository.save(new Item("starry-8450454_640.jpg", "/src/assets/img/", 1000000, 10)));
-			log.info("Preloading " + itemRepository.save(new Item("starry-night-1093721_640.jpg", "/src/assets/img/", 1000000, 10)));
+//			log.info("Preloading " + employeeRepository.save(new Employee("Bilbo Baggins", "burglar")));
+//			log.info("Preloading " + employeeRepository.save(new Employee("Frodo Baggins", "thief")));
+//			
+//			
+//			log.info("Preloading " + memberRepository.save(new Member("sangbinlee9@gmail.com", "pwd1234", "이상빈")));
+//			log.info("Preloading " + memberRepository.save(new Member("하나님@gmail.com", "pwd1234", "하나님")));
+//			
+//
+//			log.info("Preloading " + itemRepository.save(new Item("ai-generated-8723974_640.png", "/src/assets/img/", 1000000, 10)));
+//			log.info("Preloading " + itemRepository.save(new Item("istockphoto-155144963-1024x1024.jpg", "/src/assets/img/", 1000000, 10)));
+//			log.info("Preloading " + itemRepository.save(new Item("starry-8450454_640.jpg", "/src/assets/img/", 1000000, 10)));
+//			log.info("Preloading " + itemRepository.save(new Item("starry-night-1093721_640.jpg", "/src/assets/img/", 1000000, 10)));
 			
 			
 		};

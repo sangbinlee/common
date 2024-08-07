@@ -30,6 +30,7 @@ public class SecurityConfig {
 				.requestMatchers("/auth/login").permitAll()
 				.requestMatchers("/member/join").permitAll()
 				.requestMatchers("/").permitAll()
+				.requestMatchers("/cookie").permitAll()
 				.requestMatchers("/v3/api-docs/**",
                         "/swagger-ui/**",
                         "/swagger-ui.html").permitAll()
