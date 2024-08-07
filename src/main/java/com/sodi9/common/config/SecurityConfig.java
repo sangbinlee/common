@@ -25,8 +25,9 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests(authorize -> 
 			authorize
-				.requestMatchers("/auth/login").permitAll()
 				.requestMatchers("/api/employees").permitAll()
+				.requestMatchers("/api/item").permitAll()
+				.requestMatchers("/auth/login").permitAll()
 				.requestMatchers("/member/join").permitAll()
 				.requestMatchers("/").permitAll()
 				.requestMatchers("/v3/api-docs/**",

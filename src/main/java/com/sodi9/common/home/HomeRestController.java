@@ -4,7 +4,10 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpCookie;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -62,21 +65,66 @@ public class HomeRestController {
             Integer id = member.getId();
 			String token = jwtService.getToken("id", id);
 
-            Cookie cookie = new Cookie("token", token);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/");
-            int maxAge = 1000 * 60 * 30;// 30분
-			cookie.setMaxAge(maxAge );
-            res.addCookie(cookie);
+//            Cookie cookie = new Cookie("token", token);
+//            cookie.setSecure(true);
+//            cookie.setHttpOnly(true);
+//            cookie.setPath("/");
+//            int maxAge = 1000 * 60 * 30;// 30분
+//            int maxAge = 120;// 30분
+//			cookie.setMaxAge(maxAge );
+//			cookie.setMaxAge(60 * 60);  // 쿠키 유효 시간 : 1시간
+		    // expires in 7 days
+//		    cookie.setMaxAge(7 * 24 * 60 * 60);
+//            res.addCookie(cookie);
 			
-//			return member.getId();
+            addCookie(res, "token", token, 7*24*60*60);
+            
+            
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.add("Set-Cookie","key="+"value");
+            
+//            HttpCookie cookie2 = ResponseCookie.from("token", token)
+//                    .path("/")
+//                    .build();
+
+//            ResponseEntity.status(HttpStatus.OK).headers(headers).build();
+            
+//            return ResponseEntity.ok()
+//            .header(HttpHeaders.SET_COOKIE, cookie2.toString())
+//            .body(id);
             return new ResponseEntity<>(id, HttpStatus.OK);
+            
+//			return member.getId();
+//            return new ResponseEntity<Integer>(id,headers, HttpStatus.OK);
 		}
 		
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 //		return 0;
 //		return Collections.singletonMap("token", session.getId());
 	}
+	
+	
+	
+
+    public void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
+        ResponseCookie cookie = ResponseCookie.from(name, value)
+            .path("/")
+            .sameSite("None")
+            .httpOnly(false)
+            .secure(false)
+            .maxAge(maxAge)
+            .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+    }
+	
+	
+	
+	
+	
+	
+	
+	
 	@PostMapping("/auth/signup")
 	public int signup(
 //			HttpSession session, 
@@ -97,9 +145,8 @@ public class HomeRestController {
     @PostMapping("/api/logout")
     public ResponseEntity logout(HttpServletResponse res) {
         Cookie cookie = new Cookie("token", null);
-        cookie.setPath("/");
+//        cookie.setPath("/");
         cookie.setMaxAge(0);
-
         res.addCookie(cookie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
