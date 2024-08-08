@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configurers.HttpBasicC
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -21,10 +23,14 @@ public class SecurityConfig {
 		http.csrf(AbstractHttpConfigurer::disable);
 		http.httpBasic(HttpBasicConfigurer::disable);
 		http.cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurationSource()));
+//		http.cors(corsConfigurer -> corsConfigurer.configurationSource(corsConfigurer()));
 		
 		
 		http.authorizeHttpRequests(authorize -> 
 			authorize
+				.requestMatchers("/api/cookie").permitAll()
+				.requestMatchers("/api/orders").permitAll()
+				.requestMatchers("/api/cart/**").permitAll()
 				.requestMatchers("/api/check").permitAll()
 				.requestMatchers("/api/employees").permitAll()
 				.requestMatchers("/api/item").permitAll()
@@ -43,7 +49,19 @@ public class SecurityConfig {
 	
 	
 	
-	
+//	@Bean
+//	public WebMvcConfigurer corsConfigurer() {
+//	    return new WebMvcConfigurer() {
+//	        @Override
+//	        public void addCorsMappings(CorsRegistry registry) {
+//	            registry.addMapping("/**")
+////	                .allowedOrigins("http://yourfrontend.com")
+//	                .allowedOrigins("*")
+//	                .allowedMethods("*")
+//	                .allowCredentials(true);
+//	        }
+//	    };
+//	}
 	
 	
 

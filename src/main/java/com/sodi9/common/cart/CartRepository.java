@@ -7,8 +7,12 @@ import java.util.List;
 //CRUD refers Create, Read, Update, Delete
 
 public interface CartRepository extends CrudRepository<Cart, Integer> {
-	Cart findByItemIdAndItemId(int memberId, int itemId);
+	
 
 	List<Cart> findByMemberId(int memberId);
+
+	void deleteByMemberId(int memberId);
+
+	Cart findByMemberIdAndItemId(int memberId, int itemId);
 
 }
