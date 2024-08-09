@@ -28,8 +28,10 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests(authorize -> 
 			authorize
+				.requestMatchers("/favicon.ico").permitAll()
 				.requestMatchers("/api/cookie").permitAll()
 				.requestMatchers("/api/orders").permitAll()
+				.requestMatchers("/api/cart").permitAll()
 				.requestMatchers("/api/cart/**").permitAll()
 				.requestMatchers("/api/check").permitAll()
 				.requestMatchers("/api/employees").permitAll()

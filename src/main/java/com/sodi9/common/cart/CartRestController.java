@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.sodi9.common.item.Item;
 import com.sodi9.common.item.ItemRepository;
+import com.sodi9.common.order.OrderRestController.Constants;
 import com.sodi9.common.service.JwtService;
 
 import jakarta.servlet.http.Cookie;
@@ -24,9 +26,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@Transactional
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/api/cart") // This means URL's start with /api (after Application path)
 public class CartRestController {
+	public static class Constants{
+		public static final String token = "token";
+		public static final String token1 = "testToken";
+		public static final String token2 = "testToken2";
+	}
+	
 	@Autowired
 	JwtService jwtService;
 
@@ -37,7 +46,12 @@ public class CartRestController {
 	ItemRepository itemRepository;
 
 	@GetMapping
-	public ResponseEntity getCartItems(@CookieValue(value = "token", required = false) String token) {
+	public ResponseEntity getCartItems(
+			
+
+			@CookieValue(value = Constants.token, defaultValue = "Guest") String token
+			
+			) {
 
 		if (!jwtService.isValid(token)) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
@@ -66,11 +80,12 @@ public class CartRestController {
 	public ResponseEntity pushCartItem(
 			@PathVariable("itemId") int itemId,
 			@CookieValue(value = "token", required = false) String token,
-			@CookieValue(value = "JSESSIONID", required = false) String cookie,
+			@CookieValue(value = "JSESSIONID", required = false) String jsessionid,
 			HttpServletRequest request) {
 
 		log.info("itemId={}", itemId);
-		log.info("cookie={}", cookie);
+		log.info("token={}", token);
+		log.info("jsessionid={}", jsessionid);
 //		log.info("token cookie={}", getCookieValue(request, "token"));
 		
 		
@@ -80,16 +95,16 @@ public class CartRestController {
 		if (cookies != null) {
 			for (int i = 0; i < cookies.length; i++) {
 				cook = cookies[i];
-				if (cook.getName().equalsIgnoreCase("loginPayrollUserName"))
-					uname = cook.getValue();
-				if (cook.getName().equalsIgnoreCase("loginPayrollPassword"))
+//				if (cook.getName().equalsIgnoreCase("loginPayrollUserName"))
+					uname = cook.getName();
+//				if (cook.getName().equalsIgnoreCase("loginPayrollPassword"))
 					pass = cook.getValue();
+					log.info("uname={}, pass={}", uname, pass);
 			}
 		}
 
 		
 
-		log.info("uname={}, pass={}", uname, pass);
 		
 		
 		if (!jwtService.isValid(token)) {
@@ -109,7 +124,7 @@ public class CartRestController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@DeleteMapping("/api/cart/items/{itemId}")
+	@DeleteMapping("{itemId}")
 	public ResponseEntity removeCartItem(
 			@PathVariable("itemId") int itemId,
 			@CookieValue(value = "token", required = false) String token) {

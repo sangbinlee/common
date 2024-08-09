@@ -1,40 +1,48 @@
 package com.sodi9.common.service;
 
-import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.xml.bind.DatatypeConverter;
 import lombok.extern.slf4j.Slf4j;
 
 @Service("jwtService")
 @Slf4j
 public class JwtService {
 
-	private String secretKey = "abbci2ioadij@@@ai17a662###8139!!!18ausudahd178316738687687@@ad6g";
+	
+	private String secretKey = "abbci2ioadijai17a662813918ausudahd178316738687687ad6g";// 
+
+	public static void main(String[] args) {
+
+		String secretKey = "abbci2ioadij@@@ai17a662###8139!!!18ausudahd178316738687687@@ad6g";
+		System.out.println("key=" + Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)));
+	}
 
 	private SecretKey getSecretKey() {
-		log.info("secretKey={}", secretKey);
+		log.info("22222 secretKey={}", secretKey);
 //		return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
 //		byte[] secretByteKey = DatatypeConverter.parseBase64Binary(secretKey);
 //		Key signKey = new SecretKeySpec(secretByteKey, SignatureAlgorithm.HS256.getJcaName());
-		SecretKey key = Jwts.SIG.HS256.key().build();
+//		SecretKey key = Jwts.SIG.HS256.key().build();
+
+		SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
 		return key;
+
+//		String secretString = Encoders.BASE64.encode(key.getEncoded());
+
 	}
+
 	public String getToken(String key, Object value) {
 
 		Date nowDate = new Date();
@@ -48,9 +56,21 @@ public class JwtService {
 		Map<String, Object> map = new HashMap<>();
 		map.put(key, value);
 
-		JwtBuilder builder = Jwts.builder().subject("subject").claims(map).issuedAt(nowDate).expiration(expTime).signWith(getSecretKey());
-
-		return builder.compact();
+//		JwtBuilder builder = Jwts.builder()
+//				.subject("subject")
+//				.claims(map)
+//				.issuedAt(nowDate)
+//				.expiration(expTime)
+//				.signWith(getSecretKey());
+//		return builder.compact();
+		String jws = Jwts.builder()
+				.subject("subject")
+				.claims(map)
+				.issuedAt(nowDate)
+				.expiration(expTime)
+				.signWith(getSecretKey()).compact();
+		log.info("########### jws={}", jws);
+		return jws;
 	}
 
 	public Claims getClaims(String token) {

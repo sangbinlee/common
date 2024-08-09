@@ -4,11 +4,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.sodi9.common.employee.Employee;
 import com.sodi9.common.employee.EmployeeRepository;
-import com.sodi9.common.item.Item;
 import com.sodi9.common.item.ItemRepository;
-import com.sodi9.common.member.Member;
 import com.sodi9.common.member.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
