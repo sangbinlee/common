@@ -85,42 +85,17 @@ public class CookieController {
 			HttpServletRequest req, HttpServletResponse response
 			
 			) {
-		
-		
-		
 
 		log.error("쿠키 token={} ", token);
-		
-		
-		
-		
 		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		log.error("쿠키 testToken={}, testToken2={}", testToken, testToken2);
-		
-		
 		
 		Cookie[] cookies = req.getCookies();
-		  
-		  for(Cookie c : cookies) {
-			  log.error(c.getName());  // 쿠키 이름 가져오기
-			  log.error(c.getValue());  // 쿠키 값 가져오기
-		  }
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				log.error(c.getName()); // 쿠키 이름 가져오기
+				log.error(c.getValue()); // 쿠키 값 가져오기
+			}
+		}
 		
 		return "%%%%%%%%%%%%% save cookie, key=testToken, token1=" + testToken+ ", token1=" + testToken2;
 	}

@@ -185,7 +185,7 @@ public class HomeRestController {
 	@PostMapping("/api/logout")
 	public ResponseEntity logout(HttpServletResponse res) {
 		Cookie cookie = new Cookie("token", null);
-//        cookie.setPath("/");
+        cookie.setPath("/");
 		cookie.setMaxAge(0);
 		res.addCookie(cookie);
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -195,18 +195,9 @@ public class HomeRestController {
 	public ResponseEntity check(
 			@CookieValue(value = Constants.token, defaultValue = "Guest") String token,
 			HttpServletResponse res) {
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
-		log.info("token={}", token);
+		log.info("check token={}", token);
 
-		addCookie(res, "token", token, 7 * 24 * 60 * 60);
+//		addCookie(res, "token", token, 7 * 24 * 60 * 60);
 		Claims claims = jwtService.getClaims(token);
 
 		if (claims != null) {
