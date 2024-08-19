@@ -26,6 +26,15 @@ repositories {
 
 dependencies {
 
+
+
+
+
+	// db log
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+	
+
+
 	// jsp  - 에러
 //	implementation 'javax.servlet:jstl' //jstl
 //	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' //jsp
