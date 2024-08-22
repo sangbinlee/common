@@ -31,7 +31,7 @@ public class SecurityConfig {
 				.requestMatchers("/favicon.ico").permitAll()
 				.requestMatchers("/api/cookie").permitAll()
 				.requestMatchers("/api/orders").permitAll()
-				.requestMatchers("/api/cart").permitAll()
+//				.requestMatchers("/api/cart").permitAll()
 				.requestMatchers("/api/cart/**").permitAll()
 				.requestMatchers("/api/check").permitAll()
 				.requestMatchers("/api/employee/**").permitAll()

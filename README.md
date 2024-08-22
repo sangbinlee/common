@@ -118,4 +118,16 @@
 
 	server.ssl.enabled=true
 
-
+# ubuntu https
+	openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -name airpageserver -CAfile chain.pem -caname root
+	
+	
+#  keystore.p12 setting 
+		https://sodi9.store/       ok
+		
+		
+		
+		
+		
+		
+	
