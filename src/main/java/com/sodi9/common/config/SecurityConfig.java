@@ -28,6 +28,9 @@ public class SecurityConfig {
 		
 		http.authorizeHttpRequests(authorize -> 
 			authorize
+				.requestMatchers("/profile/**").permitAll()
+				.requestMatchers("/employees/**").permitAll()
+				.requestMatchers("/robots.txt").permitAll()
 				.requestMatchers("/favicon.ico").permitAll()
 				.requestMatchers("/api/cookie").permitAll()
 				.requestMatchers("/api/orders").permitAll()

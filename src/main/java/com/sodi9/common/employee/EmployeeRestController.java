@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
@@ -52,6 +53,23 @@ public class EmployeeRestController {
 		return ResponseEntity.ok(employee2);
 	}
 
+	
+
+	/**
+	 * 1. page, sort
+	 * 2. 
+	 * @param page
+	 * @return
+	 */
+//	@GetMapping("search")
+//	public ResponseEntity<List<Employee>> search(
+//			@RequestParam(value = "page", defaultValue = 1) Integer page,
+//			
+//			) {
+//		List<Employee> employee2 = employeeService.retriveAll();
+//		return ResponseEntity.ok(employee2);
+//	}
+	
 	@DeleteMapping("{id}")
 	public ResponseEntity<String> delete(@PathVariable("id") Long id) {
 		employeeService.delete(id);

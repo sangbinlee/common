@@ -123,9 +123,9 @@
 	
 	
 #  keystore.p12 setting 
-		https://sodi9.store/       ok
+		https://sodi9.store/        ok
 		
-		
+		https://localhost/				not ok
 		
 		
 		
