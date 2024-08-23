@@ -21,7 +21,7 @@ public class Employee {
 	private String role;
 	private String firstName;
 	private String lastName;
-	
+
 	@Column(nullable = false, unique = true)
 	private String email;
 
@@ -31,7 +31,6 @@ public class Employee {
 		this.role = role;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		
 		this.email = email;
 	}
 

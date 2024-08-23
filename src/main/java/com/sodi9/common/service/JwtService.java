@@ -23,11 +23,10 @@ public class JwtService {
 	
 	private String secretKey = "abbci2ioadijai17a662813918ausudahd178316738687687ad6g";// 
 
-	public static void main(String[] args) {
-
-		String secretKey = "abbci2ioadij@@@ai17a662###8139!!!18ausudahd178316738687687@@ad6g";
-		System.out.println("key=" + Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)));
-	}
+//	public static void main(String[] args) {
+//		String secretKey = "abbci2ioadij@@@ai17a662###8139!!!18ausudahd178316738687687@@ad6g";
+//		System.out.println("key=" + Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey)));
+//	}
 
 	private SecretKey getSecretKey() {
 		log.info("22222 secretKey={}", secretKey);

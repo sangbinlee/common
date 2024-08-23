@@ -3,6 +3,9 @@ package com.sodi9.common.employee;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sodi9.common.exception.ResourceNotFoundException;
@@ -21,51 +24,57 @@ public class EmployeeService {
 		Employee employee2 = employeeRepository.save(employee);
 		return employee2;
 	}
-	
+
 	public Employee retrive(Long id) {
 		Employee employee2 = employeeRepository.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException("[retrive]Employee is not exists with given id: " + id));
+				.orElseThrow(
+						() -> new ResourceNotFoundException("[retrive]Employee is not exists with given id: " + id));
 		return employee2;
 	}
-	
 
-	public List<Employee> retriveAll() {
+	public List<Employee> findAll() {
 		List<Employee> employee2 = employeeRepository.findAll();
 		employee2
-		.stream()
-		.map(
-				(employee) -> 
+				.stream()
+				.map(
+						(employee) ->
 //				{
-					employee.toString()
+						employee.toString()
 //					log.info("employee ={}",employee.toString() )
 //				}
 				).collect(Collectors.toList());
 		return employee2;
 	}
-	
+
 	public Employee update(Employee employee) {
-		
+
 		Long id = employee.getId();
 		Employee employee2 = employeeRepository.findById(id)
 				.orElseThrow(
-						() -> new ResourceNotFoundException("[update]Employee is not exists with given id: " + id)
-				);
-		
-		
+						() -> new ResourceNotFoundException("[update]Employee is not exists with given id: " + id));
+
 		Employee employee3 = employeeRepository.save(employee);
 		return employee3;
 	}
-	
-	
-	
 
 	public void delete(Long id) {
 
 		Employee employee2 = employeeRepository.findById(id)
-				.orElseThrow(()-> new ResourceNotFoundException("[delete]Employee is not exists with given id: " + id));
-		
+				.orElseThrow(
+						() -> new ResourceNotFoundException("[delete]Employee is not exists with given id: " + id));
+
 		employeeRepository.deleteById(id);
 	}
-	
+
+	public Page<Employee> search(Pageable pageable) {
+		// TODO Auto-generated method stub
+		Page<Employee> search = employeeRepository.findAll(pageable);
+		return search;
+	}
+
+	public Page<Employee> search(Example<Employee> filter, Pageable pageable) {
+		Page<Employee> search = employeeRepository.findAll(filter, pageable);
+		return search;
+	}
 
 }
